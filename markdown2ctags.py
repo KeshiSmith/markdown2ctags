@@ -282,10 +282,6 @@ def main():
         if sys.version_info[0] == 2:
             f = open(filename, 'rb')
         else:
-            # Use a little trick here to keep things kind of sane, even though
-            # we don't really know the true encoding of the file.  Latin1 lets
-            # us treat the file like every byte is valid (unlike UTF-8 which
-            # has some invalid sequences).
             f = open(filename, 'r', encoding='utf-8', newline='', errors='ignore')
             filename = filename.encode(sys.getfilesystemencoding(), errors='ignore').decode('utf-8', errors='ignore')
 
