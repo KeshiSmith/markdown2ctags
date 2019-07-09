@@ -240,7 +240,7 @@ def genTagsFile(output, tags, sort):
             output.write('\n')
     else:
         for t in tags:
-            output.write(str(t).encode('latin1'))
+            output.write(str(t).encode('utf-8', errors='ignore'))
             output.write(b'\n')
 
 
@@ -286,8 +286,8 @@ def main():
             # we don't really know the true encoding of the file.  Latin1 lets
             # us treat the file like every byte is valid (unlike UTF-8 which
             # has some invalid sequences).
-            f = open(filename, 'r', encoding='latin1', newline='')
-            filename = filename.encode(sys.getfilesystemencoding()).decode('latin1')
+            f = open(filename, 'r', encoding='utf-8', newline='', errors='ignore')
+            filename = filename.encode(sys.getfilesystemencoding(), errors='ignore').decode('utf-8', errors='ignore')
 
         lines = f.read().splitlines()
         f.close()
